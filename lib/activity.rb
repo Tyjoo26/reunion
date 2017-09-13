@@ -20,24 +20,19 @@ class Activity
   end
 
   def split_cost_of_activity
-    sum = @participants.values.reduce(:+)
     divisible_num = @participants.keys.count
-    sum / divisible_num
+    total_cost_of_activity / divisible_num
   end
 
-  def find_what_is_owed_for_charlie
+  def find_what_is_owed
     owed = @participants.values.map do |value|
       split_cost_of_activity - value
     end
-    owed[0]
+    owed
   end
 
-  def find_what_is_owed_for_james
-    owed = @participants.values.map do |value|
-      split_cost_of_activity - value
-    end
-    owed[1]
+  def match_what_is_owed_with_participant
+    @participants.keys.zip(find_what_is_owed)
   end
-
 
 end

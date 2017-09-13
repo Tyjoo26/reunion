@@ -46,24 +46,26 @@ class ActivityTest < Minitest::Test
     assert_equal 25, activity.split_cost_of_activity
   end
 
-  def test_find_what_is_owed_charlie
+  def test_find_what_is_owed
     activity = Activity.new("Basketball")
     participant = {"Charlie" => 20}
     activity.add_participants(participant)
     participant = {"James" => 30}
     activity.add_participants(participant)
 
-    assert_equal 5, activity.find_what_is_owed_for_charlie
+    assert_equal [5, -5], activity.find_what_is_owed
   end
 
-  def test_find_what_is_owed_for_james
+  def test_match_what_is_owed_with_participant
     activity = Activity.new("Basketball")
     participant = {"Charlie" => 20}
     activity.add_participants(participant)
     participant = {"James" => 30}
     activity.add_participants(participant)
 
-    assert_equal -5, activity.find_what_is_owed_for_james
+    assert_equal 5, activity.match_what_is_owed_with_participant[0][1]
+    assert_equal -5, activity.match_what_is_owed_with_participant[1][1]
   end
+
 
 end
